@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Files</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('foto-pettine-IfjHaIoAoqE-unsplash.jpg'); /* Local background image */
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .upload-container {
+            background-color: rgba(255, 255, 255, 0.5); /* More transparent background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .upload-container h1 {
+            margin-top: 0;
+        }
+
+        .upload-container input[type="file"] {
+            margin: 10px 0;
+        }
+
+        .upload-container button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .upload-container button:hover {
+            background-color: #45a049;
+        }
+
+        .upload-container #status {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="upload-container">
+        <h1>Upload Pictures and Videos</h1>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" id="fileInput" multiple>
+            <button type="button" onclick="uploadFiles()">Upload</button>
+        </form>
+        <div id="status"></div>
+    </div>
+
+    <script>
+        function uploadFiles() {
+            const files = document.getElementById('fileInput').files;
+            const status = document.getElementById('status');
+            const formData = new FormData();
+            
+            for (let i = 0; i < files.length; i++) {
+                formData.append('files', files[i]);
+            }
+            
+            fetch('https://your-backend-url.com/upload', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.text())
+              .then(data => {
+                  status.innerText = 'Files uploaded successfully!';
+              }).catch(error => {
+                  console.error('Error:', error);
+                  status.innerText = 'Error uploading files.';
+              });
+        }
+    </script>
+</body>
+</html>
+
