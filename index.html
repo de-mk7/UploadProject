@@ -30,10 +30,6 @@
             margin-top: 0;
         }
 
-        .upload-container input[type="file"] {
-            margin: 10px 0;
-        }
-
         .upload-container button {
             background-color: #4CAF50;
             color: white;
@@ -41,49 +37,22 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            text-decoration: none; /* Remove underline */
+            display: inline-block;
         }
 
         .upload-container button:hover {
             background-color: #45a049;
-        }
-
-        .upload-container #status {
-            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <div class="upload-container">
         <h1>Upload Pictures and Videos</h1>
-        <form id="uploadForm" enctype="multipart/form-data">
-            <input type="file" id="fileInput" multiple>
-            <button type="button" onclick="uploadFiles()">Upload</button>
-        </form>
-        <div id="status"></div>
+        <a href="https://www.dropbox.com/request/6tPSTjXuV6Ew840ve2Av">
+            <button type="button">Upload to Dropbox</button>
+        </a>
     </div>
-
-    <script>
-        function uploadFiles() {
-            const files = document.getElementById('fileInput').files;
-            const status = document.getElementById('status');
-            const formData = new FormData();
-            
-            for (let i = 0; i < files.length; i++) {
-                formData.append('files', files[i]);
-            }
-            
-            fetch('https://glitch.com/~uploadproject', {
-                method: 'POST',
-                body: formData
-            }).then(response => response.text())
-              .then(data => {
-                  status.innerText = 'Files uploaded successfully!';
-              }).catch(error => {
-                  console.error('Error:', error);
-                  status.innerText = 'Error uploading files.';
-              });
-        }
-    </script>
 </body>
 </html>
 
